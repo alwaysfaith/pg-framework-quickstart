@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sf.dao.mapper.ThSysMenuMapper">
+  <resultMap id="BaseResultMap" type="com.sf.dao.model.ThSysMenu">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="OPER_ID" jdbcType="BIGINT" property="operId" />
+    <result column="OPER_TYPE" jdbcType="CHAR" property="operType" />
+    <result column="OPER_TIME" jdbcType="TIMESTAMP" property="operTime" />
+    <result column="OPER_BY" jdbcType="VARCHAR" property="operBy" />
+    <result column="MENU_ID" jdbcType="BIGINT" property="menuId" />
+    <result column="PARENT_MENU_ID" jdbcType="BIGINT" property="parentMenuId" />
+    <result column="MENU_NAME" jdbcType="VARCHAR" property="menuName" />
+    <result column="MENU_DESC" jdbcType="VARCHAR" property="menuDesc" />
+    <result column="URL_PERFIX" jdbcType="VARCHAR" property="urlPerfix" />
+    <result column="MOD_CONTEXT" jdbcType="VARCHAR" property="modContext" />
+    <result column="MENU_URL" jdbcType="VARCHAR" property="menuUrl" />
+    <result column="PERM_ID" jdbcType="BIGINT" property="permId" />
+    <result column="ICON_INDEX" jdbcType="VARCHAR" property="iconIndex" />
+    <result column="RES_OWNER" jdbcType="VARCHAR" property="resOwner" />
+    <result column="OPEN_TYPE" jdbcType="CHAR" property="openType" />
+    <result column="SORT_NO" jdbcType="BIGINT" property="sortNo" />
+    <result column="MENU_CONFIG" jdbcType="VARCHAR" property="menuConfig" />
+    <result column="MENU_FRAME" jdbcType="VARCHAR" property="menuFrame" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="BREAK_TAG" jdbcType="BIT" property="breakTag" />
+    <result column="VALID_TAG" jdbcType="BIT" property="validTag" />
+    <result column="SUBSYS_CODE" jdbcType="VARCHAR" property="subsysCode" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="CREATE_BY" jdbcType="VARCHAR" property="createBy" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="UPDATE_BY" jdbcType="VARCHAR" property="updateBy" />
+  </resultMap>
+  <sql id="sql_where">
+    <where>
+      <if test="operType != null and operType != ''">
+         and OPER_TYPE = #{operType,jdbcType=CHAR}
+      </if>
+      <if test="operTime != null and operTime != ''">
+         and OPER_TIME = #{operTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="operBy != null and operBy != ''">
+         and OPER_BY = #{operBy,jdbcType=VARCHAR}
+      </if>
+      <if test="menuId != null and menuId != ''">
+         and MENU_ID = #{menuId,jdbcType=BIGINT}
+      </if>
+      <if test="parentMenuId != null and parentMenuId != ''">
+         and PARENT_MENU_ID = #{parentMenuId,jdbcType=BIGINT}
+      </if>
+      <if test="menuName != null and menuName != ''">
+         and MENU_NAME = #{menuName,jdbcType=VARCHAR}
+      </if>
+      <if test="menuDesc != null and menuDesc != ''">
+         and MENU_DESC = #{menuDesc,jdbcType=VARCHAR}
+      </if>
+      <if test="urlPerfix != null and urlPerfix != ''">
+         and URL_PERFIX = #{urlPerfix,jdbcType=VARCHAR}
+      </if>
+      <if test="modContext != null and modContext != ''">
+         and MOD_CONTEXT = #{modContext,jdbcType=VARCHAR}
+      </if>
+      <if test="menuUrl != null and menuUrl != ''">
+         and MENU_URL = #{menuUrl,jdbcType=VARCHAR}
+      </if>
+      <if test="permId != null and permId != ''">
+         and PERM_ID = #{permId,jdbcType=BIGINT}
+      </if>
+      <if test="iconIndex != null and iconIndex != ''">
+         and ICON_INDEX = #{iconIndex,jdbcType=VARCHAR}
+      </if>
+      <if test="resOwner != null and resOwner != ''">
+         and RES_OWNER = #{resOwner,jdbcType=VARCHAR}
+      </if>
+      <if test="openType != null and openType != ''">
+         and OPEN_TYPE = #{openType,jdbcType=CHAR}
+      </if>
+      <if test="sortNo != null and sortNo != ''">
+         and SORT_NO = #{sortNo,jdbcType=BIGINT}
+      </if>
+      <if test="menuConfig != null and menuConfig != ''">
+         and MENU_CONFIG = #{menuConfig,jdbcType=VARCHAR}
+      </if>
+      <if test="menuFrame != null and menuFrame != ''">
+         and MENU_FRAME = #{menuFrame,jdbcType=VARCHAR}
+      </if>
+      <if test="remark != null and remark != ''">
+         and REMARK = #{remark,jdbcType=VARCHAR}
+      </if>
+      <if test="breakTag != null and breakTag != ''">
+         and BREAK_TAG = #{breakTag,jdbcType=BIT}
+      </if>
+      <if test="validTag != null and validTag != ''">
+         and VALID_TAG = #{validTag,jdbcType=BIT}
+      </if>
+      <if test="subsysCode != null and subsysCode != ''">
+         and SUBSYS_CODE = #{subsysCode,jdbcType=VARCHAR}
+      </if>
+      <if test="createTime != null and createTime != ''">
+         and CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="createBy != null and createBy != ''">
+         and CREATE_BY = #{createBy,jdbcType=VARCHAR}
+      </if>
+      <if test="updateTime != null and updateTime != ''">
+         and UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateBy != null and updateBy != ''">
+         and UPDATE_BY = #{updateBy,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </sql>
+  <select id="queryList" parameterType="com.sf.dao.model.ThSysMenu" resultMap="BaseResultMap">
+     select * from th_sys_menu
+    <include refid="sql_where" />
+  </select>
+</mapper>

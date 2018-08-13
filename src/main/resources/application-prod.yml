@@ -1,0 +1,26 @@
+#日志级别和路径
+logging:
+  path: /app/data/logs/
+  level:
+    default: debug
+
+public-key: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAKT1GD21ZKcCpP/ndjY+/7kAIdc6LtAQ7Txua2xcKBywWC2l52n04kjauJe1ER/eG+yUCzSH80HNT8D2ljaA8gsCAwEAAQ==
+spring:
+  datasource:
+      druid:
+          connection-properties: config.decrypt=true;config.decrypt.key=${public-key}
+          filter:
+              config:
+                  enabled: true
+          initial-size: 50
+          max-active: 500
+          min-idle: 50
+          test-on-borrow: true
+      type: com.alibaba.druid.pool.DruidDataSource
+      driverClassName: com.mysql.jdbc.Driver
+      password: RqL8szXFq7EfGKyJbbtyxq0/jpDKM1ha4AGM17zrrpE9PdFJS5OAw0DOhXM4tm7dz10mzNg+gO4IZ/gJE0FB+w==
+      url: jdbc:mysql://127.0.0.1:3306/wms_db?characterEncoding=utf-8&useOldAliasMetadataBehavior=true&useSSL=false
+      username: sf_rdc
+  redis:
+    host: 127.0.0.1
+    port: 6379

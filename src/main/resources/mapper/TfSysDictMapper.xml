@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sf.dao.mapper.TfSysDictMapper">
+  <resultMap id="BaseResultMap" type="com.sf.dao.model.TfSysDict">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="DICT_ID" jdbcType="BIGINT" property="dictId" />
+    <result column="DICT_KEY" jdbcType="VARCHAR" property="dictKey" />
+    <result column="DICT_VALUE" jdbcType="VARCHAR" property="dictValue" />
+    <result column="DICT_TEXT" jdbcType="VARCHAR" property="dictText" />
+    <result column="SORT_NO" jdbcType="INTEGER" property="sortNo" />
+    <result column="VALID_TAG" jdbcType="BIT" property="validTag" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="CREATE_BY" jdbcType="VARCHAR" property="createBy" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="UPDATE_BY" jdbcType="VARCHAR" property="updateBy" />
+  </resultMap>
+
+    <select id="queryList" resultType="com.sf.dao.model.TfSysDict">
+        SELECT
+        *
+        FROM TF_SYS_DICT
+        WHERE 1 = 1
+        <if test="dictKey != null and dictKey !=''">
+            AND DICT_KEY like CONCAT('%',#{dictKey},'%')
+        </if>
+        <if test="dictValue != null and dictValue !=''">
+            AND DICT_VALUE like CONCAT('%',#{dictValue},'%')
+        </if>
+        <if test="dictText != null and dictText !=''">
+            AND DICT_TEXT = #{dictText}
+        </if>
+        <if test="validTag != null">
+            AND VALID_TAG = #{validTag}
+        </if>
+        ORDER BY CREATE_TIME DESC,DICT_KEY ASC,SORT_NO ASC
+    </select>
+</mapper>

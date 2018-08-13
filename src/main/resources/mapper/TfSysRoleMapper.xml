@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sf.dao.mapper.TfSysRoleMapper">
+    <resultMap id="BaseResultMap" type="com.sf.dao.model.TfSysRole">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="ROLE_ID" jdbcType="BIGINT" property="roleId"/>
+        <result column="ROLE_NAME" jdbcType="VARCHAR" property="roleName"/>
+        <result column="ROLE_CODE" jdbcType="VARCHAR" property="roleCode"/>
+        <result column="ROLE_TYPE" jdbcType="CHAR" property="roleType"/>
+        <result column="REMARK" jdbcType="VARCHAR" property="remark"/>
+        <result column="VALID_TAG" jdbcType="BIT" property="validTag"/>
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="CREATE_BY" jdbcType="VARCHAR" property="createBy"/>
+        <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="UPDATE_BY" jdbcType="VARCHAR" property="updateBy"/>
+    </resultMap>
+
+    <select id="queryRoleKeysByUserId" parameterType="long" resultType="java.lang.String">
+        SELECT
+          DISTINCT IFNULL(B.ROLE_CODE,B.ROLE_ID) AS ROLE_KEY
+        FROM TF_SYS_USER_ROLE A,
+             TF_SYS_ROLE B,
+             TF_SYS_USER C
+        WHERE 1 = 1
+        AND A.ROLE_ID = B.ROLE_ID
+        AND C.USER_ID = A.USER_ID
+        AND C.VALID_TAG = 1
+        AND B.ROLE_TYPE = 1
+        AND B.VALID_TAG = 1
+        AND B.ROLE_TYPE = 1
+        AND A.USER_ID = #{userId}
+    </select>
+
+    <select id="queryAllRoleKeys" resultType="java.lang.String">
+        SELECT
+            DISTINCT IFNULL(B.ROLE_CODE,B.ROLE_ID) AS ROLE_KEY
+        FROM TF_SYS_ROLE B
+        WHERE 1 = 1
+        AND B.VALID_TAG = 1
+    </select>
+
+
+</mapper>

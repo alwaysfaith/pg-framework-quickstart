@@ -1,0 +1,28 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: pg-framework-quickstart
+  profiles:
+    active: local
+
+#mybatis属性设置
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: /mapper/*.xml
+  typeAliasesPackage: com.sf.dao.model
+
+#分页
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+#会话有效期
+authc:
+  token:
+    expireSeconds: 2592000
+

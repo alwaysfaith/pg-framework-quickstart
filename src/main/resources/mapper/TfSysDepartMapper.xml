@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sf.dao.mapper.TfSysDepartMapper">
+  <resultMap id="BaseResultMap" type="com.sf.dao.model.TfSysDepart">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="DEPT_ID" jdbcType="BIGINT" property="deptId" />
+    <result column="DEPT_NAME" jdbcType="VARCHAR" property="deptName" />
+    <result column="PARENT_DEPT_ID" jdbcType="BIGINT" property="parentDeptId" />
+    <result column="DEPT_FRAME" jdbcType="VARCHAR" property="deptFrame" />
+    <result column="DEPT_TYPE" jdbcType="INTEGER" property="deptType" />
+    <result column="DEPT_TAG" jdbcType="VARCHAR" property="deptTag" />
+    <result column="DEPT_MANAGER" jdbcType="BIGINT" property="deptManager" />
+    <result column="PROV_ID" jdbcType="VARCHAR" property="provId" />
+    <result column="CITY_ID" jdbcType="VARCHAR" property="cityId" />
+    <result column="AREA_ID" jdbcType="VARCHAR" property="areaId" />
+    <result column="VALID_TAG" jdbcType="BIT" property="validTag" />
+    <result column="SORT_NO" jdbcType="INTEGER" property="sortNo" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="CREATE_BY" jdbcType="VARCHAR" property="createBy" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="UPDATE_BY" jdbcType="VARCHAR" property="updateBy" />
+  </resultMap>
+</mapper>

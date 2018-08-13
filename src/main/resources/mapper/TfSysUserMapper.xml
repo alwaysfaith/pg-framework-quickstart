@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sf.dao.mapper.TfSysUserMapper">
+    <resultMap id="BaseResultMap" type="com.sf.dao.model.TfSysUser">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="USER_ID" jdbcType="BIGINT" property="userId"/>
+        <result column="USER_NAME" jdbcType="VARCHAR" property="userName"/>
+        <result column="STAFF_ID" jdbcType="VARCHAR" property="staffId"/>
+        <result column="MOBILE_NO" jdbcType="VARCHAR" property="mobileNo"/>
+        <result column="SEX" jdbcType="CHAR" property="sex"/>
+        <result column="AVATAR" jdbcType="VARCHAR" property="avatar"/>
+        <result column="EMAIL" jdbcType="VARCHAR" property="email"/>
+        <result column="DEPT_ID" jdbcType="BIGINT" property="deptId"/>
+        <result column="VALID_TAG" jdbcType="BIT" property="validTag"/>
+        <result column="CREATE_BY" jdbcType="VARCHAR" property="createBy"/>
+        <result column="CREATE_TIME" jdbcType="DATE" property="createTime"/>
+        <result column="UPDATE_BY" jdbcType="VARCHAR" property="updateBy"/>
+        <result column="UPDATE_TIME" jdbcType="DATE" property="updateTime"/>
+    </resultMap>
+
+    <select id="queryUserByLoginName" resultType="com.sf.dao.model.TfSysUser">
+        SELECT
+            U.USER_ID,
+            U.USER_NAME,
+            U.EMAIL,
+            U.SEX,
+            U.AVATAR,
+            U.STAFF_ID,
+            U.MOBILE_NO
+        FROM TF_SYS_USER U
+        WHERE U.VALID_TAG = 1
+              AND (U.STAFF_ID = #{LOGIN_NAME} OR U.MOBILE_NO = #{LOGIN_NAME} OR U.EMAIL = #{LOGIN_NAME})
+    </select>
+
+    <select id="queryByOrCondition" parameterType="com.sf.dao.model.TfSysUser" resultType="com.sf.dao.model.TfSysUser">
+        SELECT
+        *
+        FROM TF_SYS_USER U
+        WHERE (
+        1 = 2
+        <if test="staffId != null and staffId !=''">
+            OR STAFF_ID = #{staffId}
+        </if>
+        <if test="mobileNo != null and mobileNo !=''">
+            OR MOBILE_NO = #{mobileNo}
+        </if>
+        <if test="email != null and email !=''">
+            OR EMAIL = #{email}
+        </if>
+        <if test="userName != null and userName !=''">
+            OR USER_NAME = #{userName}
+        </if>
+        )
+    </select>
+
+    <select id="queryList" resultType="com.sf.dao.model.TfSysUser">
+        SELECT
+        *
+        FROM TF_SYS_USER U
+        WHERE U.VALID_TAG = 1
+        <if test="userName != null and userName !=''">
+            AND USER_NAME = #{userName}
+        </if>
+        <if test="staffId != null and staffId !=''">
+            AND STAFF_ID = #{staffId}
+        </if>
+        <if test="mobileNo != null and mobileNo !=''">
+            AND MOBILE_NO = #{mobileNo}
+        </if>
+        <if test="deptId != null and deptId !=''">
+          AND EXISTS (SELECT 1 FROM TF_SYS_DEPART SD WHERE U.DEPT_ID = SD.DEPT_ID AND SD.DEPT_FRAME LIKE (SELECT CONCAT(DEPT_FRAME, '%') FROM TF_SYS_DEPART WHERE DEPT_ID = #{deptId}))
+        </if>
+        ORDER BY CREATE_TIME DESC
+
+    </select>
+
+</mapper>

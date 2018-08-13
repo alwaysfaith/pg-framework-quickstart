@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sf.dao.mapper.ThSysPermMapper">
+  <resultMap id="BaseResultMap" type="com.sf.dao.model.ThSysPerm">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="OPER_ID" jdbcType="BIGINT" property="operId" />
+    <result column="OPER_TYPE" jdbcType="CHAR" property="operType" />
+    <result column="OPER_TIME" jdbcType="TIMESTAMP" property="operTime" />
+    <result column="OPER_BY" jdbcType="VARCHAR" property="operBy" />
+    <result column="PERM_ID" jdbcType="BIGINT" property="permId" />
+    <result column="PERM_NAME" jdbcType="VARCHAR" property="permName" />
+    <result column="PERM_CODE" jdbcType="VARCHAR" property="permCode" />
+    <result column="PERM_TYPE" jdbcType="CHAR" property="permType" />
+    <result column="VALID_TAG" jdbcType="BIT" property="validTag" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="CREATE_BY" jdbcType="VARCHAR" property="createBy" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="UPDATE_BY" jdbcType="VARCHAR" property="updateBy" />
+  </resultMap>
+</mapper>

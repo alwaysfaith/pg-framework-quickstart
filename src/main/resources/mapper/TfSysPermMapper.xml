@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sf.dao.mapper.TfSysPermMapper">
+    <resultMap id="BaseResultMap" type="com.sf.dao.model.TfSysPerm">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="PERM_ID" jdbcType="BIGINT" property="permId"/>
+        <result column="PERM_NAME" jdbcType="VARCHAR" property="permName"/>
+        <result column="PERM_CODE" jdbcType="VARCHAR" property="permCode"/>
+        <result column="PERM_TYPE" jdbcType="CHAR" property="permType"/>
+        <result column="VALID_TAG" jdbcType="BIT" property="validTag"/>
+        <result column="REMARK" jdbcType="VARCHAR" property="remark"/>
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="CREATE_BY" jdbcType="VARCHAR" property="createBy"/>
+        <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="UPDATE_BY" jdbcType="VARCHAR" property="updateBy"/>
+    </resultMap>
+
+    <select id="queryAllPermKeys" resultType="java.lang.String" parameterType="com.sf.dao.model.TfSysUser">
+        SELECT
+            DISTINCT IFNULL(E.PERM_CODE, E.PERM_ID) AS PERM_KEY
+        FROM TF_SYS_PERM E
+        WHERE E.VALID_TAG = 1
+
+        <if test="userId != null and userId !=''">
+            and e.perm_id = #{userId}
+        </if>
+    </select>
+
+    <select id="queryRolePermKeysByUserId" parameterType="long" resultType="java.lang.String">
+        SELECT
+            DISTINCT IFNULL(E.PERM_CODE, E.PERM_ID) AS PERM_KEY
+        FROM TF_SYS_USER_ROLE A,
+            TF_SYS_ROLE B,
+            TF_SYS_USER C,
+            TF_SYS_ROLE_PERM D,
+            TF_SYS_PERM E
+        WHERE A.ROLE_ID = B.ROLE_ID
+              AND C.USER_ID = A.USER_ID
+              AND D.ROLE_ID = A.ROLE_ID
+              AND D.PERM_ID = E.PERM_ID
+              AND E.VALID_TAG = 1
+              AND C.VALID_TAG = 1
+              AND B.VALID_TAG = 1
+              AND B.ROLE_TYPE = 1
+              AND A.USER_ID = #{userId}
+    </select>
+
+    <select id="queryUserPermKeysByUserId" parameterType="long" resultType="java.lang.String">
+        SELECT
+            DISTINCT IFNULL(E.PERM_CODE, E.PERM_ID) AS PERM_KEY
+        FROM TF_SYS_USER_PERM A,
+            TF_SYS_USER C,
+            TF_SYS_PERM E
+        WHERE C.USER_ID = A.USER_ID
+              AND A.PERM_ID = E.PERM_ID
+              AND E.VALID_TAG = 1
+              AND C.VALID_TAG = 1
+              AND A.USER_ID = #{userId}
+    </select>
+
+
+    <select id="queryList" resultType="com.sf.dao.model.TfSysPerm">
+        SELECT
+        *
+        FROM TF_SYS_PERM U
+        WHERE U.VALID_TAG = 1
+        <if test="permName != null and permName !=''">
+            AND PERM_NAME like CONCAT('%',#{permName},'%')
+        </if>
+        <if test="permCode != null and permCode !=''">
+            AND PERM_CODE like CONCAT('%',#{permCode},'%')
+        </if>
+        <if test="permType != null and permType !=''">
+            AND PERM_TYPE IN(
+            <foreach item="item" index="index" collection="permType.split(',')" open="" separator="," close="">
+                '${item}'
+            </foreach>
+            )
+        </if>
+    </select>
+
+
+    <select id="queryResUrl" resultType="com.sf.pg.security.auth.shiro.ResUrl">
+        SELECT
+            M.MENU_URL AS URL,
+            GROUP_CONCAT(IFNULL(P.PERM_CODE, P.PERM_ID) SEPARATOR ',') AS PERM_KEY
+        FROM
+            TF_SYS_MENU M
+            INNER JOIN TF_SYS_PERM P
+                ON P.PERM_ID = M.PERM_ID
+                   AND M.VALID_TAG = 1
+                   AND P.VALID_TAG = 1
+                   AND P.PERM_TYPE = 'M'
+                   AND (M.MENU_URL IS NOT NULL AND M.MENU_URL != '')
+        GROUP BY M.MENU_URL
+    </select>
+</mapper>
